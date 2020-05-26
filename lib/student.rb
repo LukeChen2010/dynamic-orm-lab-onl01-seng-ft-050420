@@ -42,11 +42,13 @@ class Student < InteractiveRecord
     sql = ""
     
     attribute.each do |key, value|
-      sql = <<-SQL
-        SELECT *
-        FROM #{table_name}
-        WHERE #{attribute_hash.keys[0]} = ?
-    SQL
-    DB[:conn].execute(sql, attribute_hash.values[0])
+      if value.is_a? String
+        sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = '#{value}'"
+      else
+        sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = #{value}"
+      end
+    end
+    
+    return DB[:conn].execute(sql)
   end
 end
