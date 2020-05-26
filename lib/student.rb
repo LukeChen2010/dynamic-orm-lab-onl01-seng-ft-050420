@@ -39,6 +39,8 @@ class Student < InteractiveRecord
   end
   
   def self.find_by(attribute)
+    key = attribute.keys[0]
+    value = attribute.values[0]
 
     if value.is_a? String
       sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = '#{value}'"
