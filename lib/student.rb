@@ -43,9 +43,9 @@ class Student < InteractiveRecord
     
     attribute.each do |key, value|
       sql = <<-SQL
-    SELECT *
-    FROM #{table_name}
-    WHERE #{attribute_hash.keys[0]} = ?
+        SELECT *
+        FROM #{table_name}
+        WHERE #{attribute_hash.keys[0]} = ?
     SQL
     DB[:conn].execute(sql, attribute_hash.values[0])
   end
