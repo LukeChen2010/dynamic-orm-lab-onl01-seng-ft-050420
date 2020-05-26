@@ -39,16 +39,13 @@ class Student < InteractiveRecord
   end
   
   def self.find_by(attribute)
-    sql = ""
-    
-    attribute.each do |key, value|
-      if value.is_a? String
-        sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = '#{value}'"
-      else
-        sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = #{value}"
-      end
+
+    if value.is_a? String
+      sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = '#{value}'"
+    else
+      sql = "SELECT * FROM #{Student.table_name} WHERE #{key} = #{value}"
     end
-    
+
     return DB[:conn].execute(sql)
   end
 end
